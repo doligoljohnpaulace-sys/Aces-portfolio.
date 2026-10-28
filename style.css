@@ -175,8 +175,8 @@ footer { padding: 30px 0; text-align: center; color: var(--muted); font-size: .9
 #toTop.show { opacity: 1; visibility: visible; transform: none; }
 
 /* ---------- 15. Scroll reveal animation ---------- */
-.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
-.reveal.visible { opacity: 1; transform: none; }
+.js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+.js .reveal.visible { opacity: 1; transform: none; }
 
 /* =========================================================
    ARDUINO INFO PAGE (arduino.html)
@@ -264,5 +264,5 @@ footer { padding: 30px 0; text-align: center; color: var(--muted); font-size: .9
 /* Respect users who prefer less motion */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-  .reveal { opacity: 1; transform: none; }
+  .js .reveal { opacity: 1; transform: none; }
 }
