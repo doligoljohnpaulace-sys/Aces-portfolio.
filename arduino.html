@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arduino RFID Door Lock | John Paul Ace Doligol</title>
+  <meta name="description" content="Information page about our Arduino academic project: an RFID card door lock built with an Arduino Uno, RFID-RC522 reader, LCD and servo.">
+  <meta name="theme-color" content="#0a1030">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#overview">Skip to content</a>
+
+  <header class="navbar">
+    <nav class="container nav-inner" aria-label="Main navigation">
+      <a href="index.html" class="logo">John Paul <span>Ace</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#education">Education</a></li>
+        <li><a href="index.html#resume">Resume</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================= PAGE TITLE ================= -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="crumbs"><a href="index.html#projects">Projects</a> / Arduino Project</p>
+        <span class="tag">Arduino / Hardware Development</span>
+        <h1>RFID Card Door Lock</h1>
+        <p>A group academic project where we used an Arduino to build a small model door that locks and unlocks with an RFID card.</p>
+        <a href="index.html#projects" class="btn btn-outline btn-sm">← Back to Projects</a>
+      </div>
+    </section>
+
+    <!-- ================= OVERVIEW + VIDEO ================= -->
+    <section id="overview">
+      <div class="container overview-grid">
+        <div class="reveal">
+          <div class="section-head" style="text-align:left;margin-bottom:22px">
+            <p class="eyebrow">Overview</p>
+            <h2 style="font-size:1.9rem">What is this project?</h2>
+          </div>
+          <p>This project explores <strong>basic electronics, hardware components, and programming</strong> using Arduino. The goal was to build something that works in real life: a door that only responds to an RFID card.</p>
+          <p>When a card is tapped on the reader, the Arduino reads the card's ID and compares it with the ID it knows. A matching card locks or unlocks the door, and the screen tells the user what happened. A card that doesn't match is rejected with a "Wrong card!" message.</p>
+          <p><strong>Purpose:</strong> to demonstrate the practical application of technology and the development of a functional electronic project.</p>
+        </div>
+        <figure class="frame video-frame video-wrap reveal">
+          <video controls preload="metadata" poster="images/arduino-demo-poster.jpg" playsinline>
+            <source src="videos/arduino-demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>Demo video: the model door with the reader and LCD screen.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ================= COMPONENTS ================= -->
+    <section class="alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Hardware</p>
+          <h2>Components Used</h2>
+          <p>The main parts that can be seen in our build.</p>
+        </div>
+        <div class="info-grid">
+          <article class="card info-card reveal">
+            <div class="icon" aria-hidden="true">🧠</div>
+            <h3>Arduino Uno</h3>
+            <p>The microcontroller board that acts as the "brain". It runs our program, reads the card reader, and controls the screen and lock. It is connected to a laptop with a USB cable for power and uploading code.</p>
+          </article>
+          <article class="card info-card reveal">
+            <div class="icon" aria-hidden="true">📡</div>
+            <h3>RFID-RC522 Reader and Card/Tag</h3>
+            <p>A small module that reads RFID cards and key tags (like the blue key tag in our photos) when they are held close. Each card has its own unique ID (UID).</p>
+          </article>
+          <article class="card info-card reveal">
+            <div class="icon" aria-hidden="true">🖥️</div>
+            <h3>16x2 LCD Screen</h3>
+            <p>A character display with two rows of 16 characters. It shows messages such as "Put your card", "Door is unlocked", "Door is locked" and "Wrong card!".</p>
+          </article>
+          <article class="card info-card reveal">
+            <div class="icon" aria-hidden="true">🔒</div>
+            <h3>Servo Motor and Latch</h3>
+            <p>A small servo turns to move the latch bolt, which locks or unlocks the door. The Arduino tells the servo which angle to move to.</p>
+          </article>
+          <article class="card info-card reveal">
+            <div class="icon" aria-hidden="true">🪵</div>
+            <h3>Wooden Model Door Case</h3>
+            <p>A plywood base and wall with cut-outs for the door, the LCD screen and the card reader. It holds the parts together and makes the project look like a real door entry.</p>
+          </article>
+          <article class="card info-card reveal">
+            <div class="icon" aria-hidden="true">🔌</div>
+            <h3>Jumper Wires</h3>
+            <p>Colored wires that connect the reader, screen and servo to the Arduino without soldering, so the circuit is easy to build and fix.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <section>
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">The logic</p>
+          <h2>How It Works</h2>
+          <p>A simple loop that repeats all the time.</p>
+        </div>
+        <div class="steps">
+          <article class="card step reveal"><h3>Wait for a card</h3><p>The LCD shows <code>Put your card</code> while the Arduino keeps checking the RFID reader.</p></article>
+          <article class="card step reveal"><h3>Read the card ID</h3><p>When a card is tapped, the RC522 reader sends its unique ID (UID) to the Arduino.</p></article>
+          <article class="card step reveal"><h3>Compare with the saved ID</h3><p>The program compares the scanned UID with the one stored in the code.</p></article>
+          <article class="card step reveal"><h3>Lock or unlock</h3><p>If the card matches and the door is locked, the servo moves the latch and the LCD shows <code>Door is unlocked</code>. Tapping the same card again moves the latch back and shows <code>Door is locked</code>. The program remembers the current state in a <code>lock</code> variable.</p></article>
+          <article class="card step reveal"><h3>Reject unknown cards</h3><p>If the UID doesn't match, the door doesn't move and the LCD shows <code>Wrong card!</code>.</p></article>
+          <article class="card step reveal"><h3>Get ready for the next scan</h3><p>The program tells the reader to stop reading the current card (<code>PICC_HaltA()</code>) so the same card isn't read twice by accident.</p></article>
+        </div>
+
+        <!-- Screen messages seen in the code and demo -->
+        <div class="messages reveal" aria-label="LCD messages">
+          <div class="lcd">Put your card<small>Waiting</small></div>
+          <div class="lcd">Door is unlocked<small>Correct card</small></div>
+          <div class="lcd">Door is locked<small>Correct card again</small></div>
+          <div class="lcd">Wrong card!<small>Unknown card</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RC522 PINS ================= -->
+    <section class="alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Wiring</p>
+          <h2>RFID-RC522 Module Pins</h2>
+          <p>The reader has 8 pins. These are the labels printed on our module, and what each one is for.</p>
+        </div>
+        <div class="table-scroll reveal">
+          <table class="pin-table">
+            <thead><tr><th>Pin</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><code>3.3V</code></td><td>Power supply for the module (3.3 volts)</td></tr>
+              <tr><td><code>GND</code></td><td>Ground (0 V) connection</td></tr>
+              <tr><td><code>RST</code></td><td>Reset pin</td></tr>
+              <tr><td><code>IRQ</code></td><td>Interrupt pin (optional, not always used)</td></tr>
+              <tr><td><code>MISO</code></td><td>SPI data going from the module to the Arduino</td></tr>
+              <tr><td><code>MOSI</code></td><td>SPI data going from the Arduino to the module</td></tr>
+              <tr><td><code>SCK</code></td><td>SPI clock signal</td></tr>
+              <tr><td><code>SDA</code></td><td>Chip select (SS) when using SPI</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Tip we learned: the RC522 works at 3.3 V, so it should be powered from the Arduino's 3.3V pin, not 5V.</p>
+      </div>
+    </section>
+
+    <!-- ================= GALLERY ================= -->
+    <section>
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Behind the scenes</p>
+          <h2>Project Gallery</h2>
+          <p>Click a photo to enlarge it.</p>
+        </div>
+        <div class="gallery">
+          <figure class="reveal"><img src="images/arduino-rfid-reader.jpg" alt="Arduino Uno connected to the RFID-RC522 reader, with a blue key tag nearby" loading="lazy"><figcaption>Arduino Uno and RFID-RC522 reader being tested</figcaption></figure>
+          <figure class="reveal"><img src="images/arduino-rc522-pins.jpg" alt="Close-up of the RFID-RC522 pins labeled SDA, SCK, MOSI, MISO, IRQ, GND, RST and 3.3V with jumper wires attached" loading="lazy"><figcaption>RC522 pins with jumper wires</figcaption></figure>
+          <figure class="reveal"><img src="images/arduino-lcd.jpg" alt="16x2 LCD showing the message Put your card" loading="lazy"><figcaption>LCD showing "Put your card"</figcaption></figure>
+          <figure class="reveal"><img src="images/arduino-wood-case.jpg" alt="Wooden base and wall with a door outline and a cut-out window" loading="lazy"><figcaption>The wooden model door case before assembly</figcaption></figure>
+          <figure class="reveal"><img src="images/arduino-code.jpg" alt="Arduino IDE on a laptop showing code with lcd.print and servo.write lines" loading="lazy"><figcaption>Programming in the Arduino IDE</figcaption></figure>
+          <figure class="reveal"><img src="images/arduino-demo-poster.jpg" alt="Welcome screen from the demo video of the finished door" loading="lazy"><figcaption>Frame from the demo video</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WHAT WE LEARNED ================= -->
+    <section class="alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Takeaways</p>
+          <h2>What I Learned</h2>
+        </div>
+        <div class="info-grid">
+          <article class="card info-card reveal"><h3>Basic electronics</h3><p>How to connect modules to a microcontroller using the correct pins and voltage.</p></article>
+          <article class="card info-card reveal"><h3>Basic programming</h3><p>Using variables, conditions (<code>if / else</code>) and libraries to control hardware.</p></article>
+          <article class="card info-card reveal"><h3>Testing and troubleshooting</h3><p>Checking wires, uploading code and testing again until each part works.</p></article>
+          <article class="card info-card reveal"><h3>Teamwork</h3><p>Dividing the work between building the case, wiring the circuit and writing the code.</p></article>
+        </div>
+        <div class="center reveal" style="margin-top:40px">
+          <a href="index.html#projects" class="btn btn-primary">← Back to Projects</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container"><p>© 2026 John Paul Ace Doligol. All Rights Reserved.</p></div>
+  </footer>
+  <button id="toTop" aria-label="Back to top">↑</button>
+
+  <!-- Image pop-up -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="Enlarged photo"><img alt=""></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
